@@ -1,0 +1,22 @@
+@	Universal Inventory System
+@	Coded by: Gizmo AKA Ourea, Alzie
+@	Email: ccubed.techno@gmail.com
+@	Date Last Touched: 10/31/2014
+@----------------------------------------------------------------------------
+@	Purpose: Inventory System that can be used for any game system.
+@----------------------------------------------------------------------------
+@	Layout:
+@	CATEGORIES - List of Inventory Categories
+@	[CATEGORY]_HEADINGS - This is the list of stats that appear in the category listing
+@	[CATEGORY]_STATS - This is the master list of all stats that appear in the full item listing
+@	[CATEGORY] - List of Item IDs
+@
+@	Commands:
+@	+inv - Shows you your items
+@	+inv/list - shows the list of all categories
+@	+inv/show category - show a list of all items in that category
+@	+inv/show id - show that specific item
+@	+inv/set player=id - add id to player's inventory. add a ! before id to remove
+
+
+&CATEGORIES

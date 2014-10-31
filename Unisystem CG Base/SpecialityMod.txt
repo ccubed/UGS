@@ -1,0 +1,17 @@
+@	Unisystem CG Specialty Modifications
+@	Coded by: Gizmo AKA Ourea, Alzie
+@	Email: ccubed.techno@gmail.com
+@	Date Last Touched: 10/27/2014
+@----------------------------------------------------------------------------
+@	Purpose: If your game needs to support specialties, this code modifies the library
+@			 controller to allow them.
+@	Command: +stat/set player/type=specialty:whatever.specialty-name
+@----------------------------------------------------------------------------
+
+
+th [if([num(Library Controller)],[set(me,GNITCG:[num(Library Controller)])],Didn't find the Library Controller. Modifications to allow Specialties will not work.)]
+&CMD.STAT.SET [xget(me,GNITCG)]=$+stat/set */*=*:@assert [isstaff(%#)]={@pemit %#=[ansi(hr,STAFF ONLY)]};@assert [pmatch(%0)]={@pemit %#=[ansi(hr,%0 doesn't match a player.)]};@assert [hasattr(%va,LIST_[edit(%1,%b,_)])]={@pemit %#=[ansi(hr,%1 doesn't match a stat type.)]};@assert [gte([words(%2,:)],2)]={@pemit %#=[ansi(hr,Didn't put in a stat or level)]};@switch [strmatch(%2,!*)][strmatch(%2,*Specialty*)]=00,{@pemit %#=[u(F.SET.STAT,[pmatch(%0)],[edit(%1,%b,_)],%2)]},10,{@pemit %#=[u(F.REMOVE.STAT,[pmatch(%0)],[edit(%1,%b,_)],%2)]},01,{@pemit %#=[u(F.SPEC.ADD,[pmatch(%0)],[edit(%1,%b,_)],%2)]},11,{@pemit %#=[u(F.SPEC.REM,[pmatch(%0)],[edit(%1,%b,_)],%2)]}
+&FN.SPEC.ADD [xget(me,GNITCG)]=[setq(A,[before([after(%2,:)],.)])][setq(b,[after([after(%2,:)],.)])][if(member(xget(%va,%1),%qA,|),[set(%0,%1.SPECS:[setunion(xget(%0,%1.SPECS),%qA~%qB,|,|)])][ansi(hw,STAT:)]%bAdd ed %qB as a specialty of %qA,[ansi(hr,STAT:)]%b%qA doesn't match a skill.)]
+&FN.SPEC.REM [xget(me,GNITCG)]=[setq(A,[before([after(%2,:)],.)])][setq(b,[after([after(%2,:)],.)])][set(%0,%1.SPECS:[setdiff(lcstr(xget(%0,%1.SPECS)),lcstr(%qA~%qB),|,|)])][ansi(hr,STAT:)]%bRemoved %qB Specialty from [name(%0)] for skill %qA.
+th Modifications to Library controller's stat set function finished. Code now accepts specialties.
+@set me=GNITCG:

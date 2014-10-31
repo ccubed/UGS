@@ -1,0 +1,28 @@
+@	Universal Sheet System
+@	Coded by: Gizmo AKA Ourea, Alzie
+@	Email: ccubed.techno@gmail.com
+@	Date Last Touched: 10/29/2014
+@----------------------------------------------------------------------------
+@	Purpose: An attempt at a universal sheet system for this Universal CG System
+@	Note: Don't forget to set this wizard/inherit. It reads attributes on players
+@	Note2: Don't forget to populate Display-Stats. It's provided here for you to copy paste.
+@	Note3: Defaults to only showing name of stat if one not given
+@----------------------------------------------------------------------------
+
+@set me=quiet
+th [ansi(hw,Making Universal Sheet System)]
+@create Universal Sheet
+@set Universal Sheet=!no_command safe
+&CMD.SHEET Universal Sheet=$+sheet:@break [match(name(%#),*guest*)]={@pemit %#=[ansi(hr,SHEET:)]%bGuests can't use this command.};@pemit %#=[header([name(%#)]'s Sheet)]%R[u(DISPLAY.BEGIN)][footer()]
+&DISPLAY-STATS Universal Sheet=
+&FORMAT-1 Universal Sheet=[iter(xget(%0,%1),[if(mod(inum(0),2),|%b)][ljust([ansi(hw,before(%i0,~))],37)][if(not(mod(inum(0),2)),%b|%R)],|,[if(match(version(),*penn*),[space(0)],@@)])]
+&FORMAT-SPECS Universal Sheet=[iter(xget(%0,%1),[if(mod(inum(0),2),|%b)][ljust([ansi(hw,[before(%i0,~)].[after(%i0,~)])],37)][if(not(mod(inum(0),2)),%b|%R)],|,[if(match(version(),*penn*),[space(0)],@@)])]
+&FORMAT-2 Universal Sheet=[iter(xget(%0,%1),|%b[ljust([ansi(hw,extract(%i0,1,1,~))],68)][space(3)][rjust([ansi(hw,extract(%i0,2,1,~))],3)]%b|%R,|,[if(match(version(),*penn*),[space(0)],@@)])]
+&FORMAT-3 Universal Sheet=[iter(xget(%0,%1),|%b[ljust([ansi(hw,extract(%i0,1,1,~))],33)][space(3)][ljust([chr(40)][extract(%i0,3,1,~)][chr(41)],33)][space(2)][rjust([ansi(hw,extract(%i0,2,1,~))],3)]%b|%R,|,[if(match(version(),*penn*),[space(0)],@@)])]
+&SEP Universal Sheet=[repeat(=,78)]
+&DISPLAY.BEGIN Universal Sheet=|%b[ljust([ansi(hw,Name:)]%b[xget(%#,fullname)],37)][rjust([ansi(hw,DoB:)]%b[xget(%#,dob)],37)]%b|%R|%b[ljust([ansi(hw,Concept:)]%b[xget(%#,concept)],74)]%b|%R[u(SEP)]%R[u(DISPLAY.REST)]
+&DISPLAY.REST Universal Sheet=[iter(xget(me,DISPLAY-STATS),[if(hasattr(%#,before(%i0,~)),[u(TITLE,[before(%i0,~)])]%R[switch(after(%i0,~),1,[u(FORMAT-1,%#,before(%i0,~))],2,[u(FORMAT-2,%#,before(%i0,~))],3,[u(FORMAT-3,%#,before(%i0,~))],[u(FORMAT-1,%#,before(%i0,~))])])][if(hasattr(%#,[before(%i0,~)].specs),[setq(A,%qA%b[before(%i0,~)])])], ,[if(match(version(),*penn*),[space(0)],@@)])][if(t(%qA),[u(DISPLAY.SPECS,%qA)])]
+&DISPLAY.SPECS Universal Sheet=[u(TITLE,Specialties)]%R[iter(%0,[u(FORMAT-SPECS,%#,%i0.SPECS)], ,[if(match(version(),*penn*),[space(0)],@@)])]
+&TITLE Universal Sheet=[center([ansi(hw,[chr(91)]%b%0%b[chr(93)])],78,-)]
+th [ansi(hw,Done setting up. Have fun. Don't forget to set me Inherit or wizard.)]
+@set me=!quiet

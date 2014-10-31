@@ -1,0 +1,46 @@
+@	L5R Roller
+@	Coded by: Gizmo AKA Ourea, Alzie
+@	Email: ccubed.techno@gmail.com
+@	Date Last Touched: 10/24/2014
+@----------------------------------------------------------------------------
+@	Purpose: A roller for L5R that supports up to 4e (IE: emphasis is included)
+@	Note: It does not read from sheets. You must input numbers manually.
+@		  This is meant to be a general use roller for any game anywhere.
+@	Note: Only install one of these.
+@----------------------------------------------------------------------------
+@   Flags:
+@	e - emphasis (4e only, reroll 1s)
+@   9 - explode on 9 (roll again, add to first roll) (we always explode on 10 by default, but this changes it to explode on 9 also)
+@   w - weak, keep lowest dice
+@	F.RESULTS - Passed: Roll, Keep, Emphasis (1,0), Explode (0 for 10, 9 for 9), Weak (1,0)
+
+-- Mux/Rhost/Others with lrand -- (Tested and working)
+
+@set me=quiet
+th [ansi(hw,Making L5R Roller.)]
+@create L5R Roll
+@set L5R Roll=!no_command safe
+&CMD.ROLL L5R Roll=$+roll* K *:@assert [gt(%1,0)]={@pemit %#=[ansi(hr,ROLL:)]%bThere's no point in rolling if we're keeping 0 dice.};@assert [gte([if([t(match(%0,*/*))],[after(%0,%b)],[trim(%0)])],%1)]={@pemit %#=[ansi(hr,ROLL:)]%bYou have to roll at least as many dice as you intend to keep!};@switch [t(match(%0,*/*))]=0,{@pemit %#=[u(F.RESULTS,[trim(%0)],%1,0,0,0)]},1,{@pemit %#=[u(F.RESULTS,[after(%0,%b)],%1,[match(before(%0,%b),*e*)],[if([match(before(%0,%b),*9*)],9,0)],[match(before(%0,%b),*w*)])]}
+&F.RESULTS L5R Roll=[setq(A,0)][setq(C,[if(%3,9,10)])][setq(B,[sort([lrand(1,10,%0)])])][if(%2,[setq(B,[sort([u(F.EMPHASIS,%qB)])])])][if(not(%4),[setq(B,revwords(%qB))])][setq(D,elements(%qB,lnum(1,%1)))][iter(%qD,[if(gte(%i0,%qC),[setq(A,[add(%qA,%i0,[setr(z,[u(F.EXPLODE,%qC)])])])][setq(D,[replace(%qD,inum(0),add(%qZ,itext(0)))])],[setq(A,[add(%qA,%i0)])])], ,@@)][u(F.DISPLAY.RESULTS,%qD,%qB,%qA)]
+&F.DISPLAY.RESULTS L5R Roll=[u(HEADER)]%R[ansi(hx,%1)]%R[ansi(hg,%0)] -> [ansi(hw,%2)]%R[u(FOOTER)]
+&F.EXPLODE L5R Roll=[setq(X,[setr(V,[rand(1,10)])])][if(gte(%qV,%0),[u(F.EXPLODE.MORE,%0)])]%qX
+&F.EXPLODE.MORE L5R Roll=[setq(V,[rand(1,10)])][if(gte(%qV,%0),[setq(X,add(%qX,%qV))][u(F.EXPLODE.MORE,%0)])][setq(X,[add(%qX,%qV)])]
+&F.EMPHASIS L5R Roll=[if(match(%0,*1*),[iter(%0,[if(eq(%i0,1),[rand(1,10)],%i0)], ,%b)],%0)]
+@set me=!quiet
+th [ansi(hw,L5R Roller Made. Stick it in your master room. It does not need staff permissions unless you code it to read player sheets.)]
+
+-- Pennmush/Others without lrand -- (haven't actually been able to test this, same code as above with lrand replaced with a function, so that's the only thing that can be broken)
+
+@set me=quiet
+th [ansi(hw,Making L5R Roller.)]
+@create L5R Roll
+@set L5R Roll=!no_command safe
+&CMD.ROLL L5R Roll=$+roll* K *:@assert [gt(%1,0)]={@pemit %#=[ansi(hr,ROLL:)]%bThere's no point in rolling if we're keeping 0 dice.};@assert [gte([if([t(match(%0,*/*))],[after(%0,%b)],[trim(%0)])],%1)]={@pemit %#=[ansi(hr,ROLL:)]%bYou have to roll at least as many dice as you intend to keep!};@switch [t(match(%0,*/*))]=0,{@pemit %#=[u(F.RESULTS,[trim(%0)],%1,0,0,0)]},1,{@pemit %#=[u(F.RESULTS,[after(%0,%b)],%1,[match(before(%0,%b),*e*)],[if([match(before(%0,%b),*9*)],9,0)],[match(before(%0,%b),*w*)])]}
+&F.RESULTS L5R Roll=[setq(A,0)][setq(C,[if(%3,9,10)])][setq(B,[sort([u(lrand,%0)])])][if(%2,[setq(B,[sort([u(F.EMPHASIS,%qB)])])])][if(not(%4),[setq(B,revwords(%qB))])][setq(D,elements(%qB,lnum(1,%1)))][iter(%qD,[if(gte(%i0,%qC),[setq(A,[add(%qA,%i0,[setr(z,[u(F.EXPLODE,%qC)])])])][setq(D,[replace(%qD,inum(0),add(%qZ,itext(0)))])],[setq(A,[add(%qA,%i0)])])], ,@@)][u(F.DISPLAY.RESULTS,%qD,%qB,%qA)]
+&F.DISPLAY.RESULTS L5R Roll=[u(HEADER)]%R[ansi(hx,%1)]%R[ansi(hg,%0)] -> [ansi(hw,%2)]%R[u(FOOTER)]
+&F.EXPLODE L5R Roll=[setq(X,[setr(V,[rand(1,10)])])][if(gte(%qV,%0),[u(F.EXPLODE.MORE,%0)])]%qX
+&F.EXPLODE.MORE L5R Roll=[setq(V,[rand(1,10)])][if(gte(%qV,%0),[setq(X,add(%qX,%qV))][u(F.EXPLODE.MORE,%0)])][setq(X,[add(%qX,%qV)])]
+&F.EMPHASIS L5R Roll=[if(match(%0,*1*),[iter(%0,[if(eq(%i0,1),[rand(1,10)],%i0)], ,%b)],%0)]
+&LRAND L5R Roll=[iter(lnum(1,%0),rand(1,10),%b,[space(0)])]
+@set me=!quiet
+th [ansi(hw,L5R Roller Made. Stick it in your master room. It does not need staff permissions unless you code it to read player sheets.)]

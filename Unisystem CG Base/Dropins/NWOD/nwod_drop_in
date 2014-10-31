@@ -1,0 +1,61 @@
+@	NWOD CG Drop In
+@	Coded by: Gizmo AKA Ourea, Alzie
+@	Email: ccubed.techno@gmail.com
+@	Date Last Touched: 3/16/2014
+@----------------------------------------------------------------------------
+@	Purpose: NWOD CG System Dropin for Gizmo's Unisystem CG
+@	Note: This system requires the Specialty Modifications. See SpeciltyMod.
+@----------------------------------------------------------------------------
+
+th NWOD Drop In
+th [if([num(CG Library)],[set(me,GNITCG:[num(CG Library)])],Didn't find the CG Library. This install will fail.)]
+th Setting up Attributes
+&LIST_ATTRIBUTE [xget(me,GNITCG)]=Strength|Dexterity|Stamina|Presence|Manipulation|Composure|Resolve|Intelligence|Wits
+&LIST_PHYSICAL-ATTRIBUTES [xget(me,GNITCG)]=Strength|Dexterity|Stamina
+&LIST_MENTAL-ATTRIBUTES [xget(me,GNITCG)]=Intelligence|Wits|Resolve
+&LIST_SOCIAL-ATTRIBUTES [xget(me,GNITCG)]=Presence|Manipulation|Composure
+th Setting up Skills
+&LIST_SKILL [xget(me,GNITCG)]=Academics|Athletics|Animal-Ken|Computer|Brawl|empathy|Crafts|Drive|Expression|Investigation|Firearms|Intimidation|Medicine|Larceny|Persuasion|Occult|Stealth|Socialize|Politics|Survival|Streetwise|Science|Weaponry|Subterfuge
+&LIST_PHYSICAL-SKILLS [xget(me,GNITCG)]=Athletics|Brawl|Drive|Firearms|Larceny|Stealth|Survival|Weaponry
+&LIST_MENTAL-SKILLS [xget(me,GNITCG)]=Academics|Computer|Crafts|Investigation|Medicine|Occult|Politics|Science
+&LIST_SOCIAL-SKILLS [xget(me,GNITCG)]=Animal-Ken|Empathy|Expression|Intimidation|Persuasion|Socialize|Streetwise|Subterfuge
+th Setting up Templates
+&LIST_TEMPLATES [xget(me,GNITCG)]=Mortal|Mortal+|Vampire|Hunter|Demon|Geist|Changeling|Mage|Werewolf|Wolfblooded|Changing-Breed|Faetouched|Sleepwalker
+th Setting up Giant Fucking List of Class Shit
+&LIST_ARCANA [xget(me,GNITCG)]=Death|Fate|Forces|Life|Matter|Mind|Prime|Space|Spirit|Time
+&LIST_CLANS [xget(me,GNITCG)]=Daeva|Gangrel|Mekhet|Nosferatu|Ventrue 
+&LIST_COVENANTS [xget(me,GNITCG)]=Lancea-Sanctum|Circle-of-the-Crone|Ordo-Dracul|Invictus|Carthians
+&LIST_AUSPICE [xget(me,GNITCG)]=Rahu|Cahalith|Elodoth|Ithaeur|Irraka
+&LIST_TRIBES [xget(me,GNITCG)]=Blood-Talons|Bone-Shadows|Hunters-in-Darkness|Iron-Masters|Storm-Lords|Ghost-Wolves
+&LIST_KITH [xget(me,GNITCG)]=Broadback|Hunterheart|Runnerswift|Skitterskulk|Steepscrambler|Venombite|Windwing|Cleareyes|Coldscale|Roteater|Truefiend|Chimera|Coyote|Nix|Riddleseeker|Antiquarian|Gravewight|Leechfinger|Mirroskin|Tunnelgrub|Lurkglider|Moonborn|Nightsinger|Palewraith|Razorhand|Whisperwisp|Illes|Pishacha|Skogsra|Lurkers|Airtouched|Earthbones|Fireheart|Manikin|Snowskin|Waterborn|Woodblood|Blightbent|Levinquick|Metalflesh|Sandharrowed|Apsaras|Ask-wee-da-eed|Di-cang|Bright-Ones|Dancer|Draconic|Flowering|Muse|Flamesiren|Polychromatic|Shadowsoul|Telluric|Treasured|Gandharva|Succubus|Weisse-Frau|Minstrel|Romancer|Larcenist|Playmate|Cyclopean|Farwalker|Gargantuan|Gristlegrinder|Stonebones|Water-dweller|Bloodbrute|Corpsegrinder|Render|Witchtooth|Daitya|Oni|Troll|Artist|Brewer|Chatelaine|Chirurgeon|Oracle|Smith|Soldier|Woodwalker|Author|Drudge|Gameplayer|Miner|Gremlin|Pamarindo|Thusser|Fatemaker|Inventors
+&LIST_kiths-beast [xget(me,GNITCG)]=Broadback|Hunterheart|Runnerswift|Skitterskulk|Steepscrambler|Venombite|Windwing|Cleareyes|Coldscale|Roteater|Truefiend|Chimera|Coyote|Nix|Riddleseeker
+&LIST_kiths-darkling [xget(me,GNITCG)]=Antiquarian|Gravewight|Leechfinger|Mirroskin|Tunnelgrub|Lurkglider|Moonborn|Nightsinger|Palewraith|Razorhand|Whisperwisp|Illes|Pishacha|Skogsra|Lurkers
+&LIST_kiths-elemental [xget(me,GNITCG)]=Airtouched|Earthbones|Fireheart|Manikin|Snowskin|Waterborn|Woodblood|Blightbent|Levinquick|Metalflesh|Sandharrowed|Apsaras|Ask-wee-da-eed|Di-cang
+&LIST_kiths-fairest [xget(me,GNITCG)]=Bright-Ones|Dancer|Draconic|Flowering|Muse|Flamesiren|Polychromatic|Shadowsoul|Telluric|Treasured|Gandharva|Succubus|Weisse-Frau|Minstrel|Romancer|Larcenist|Playmate
+&LIST_kiths-ogre [xget(me,GNITCG)]=Cyclopean|Farwalker|Gargantuan|Gristlegrinder|Stonebones|Water-dweller|Bloodbrute|Corpsegrinder|Render|Witchtooth|Daitya|Oni|Troll
+&LIST_kiths-wizened [xget(me,GNITCG)]=Artist|Brewer|Chatelaine|Chirurgeon|Oracle|Smith|Soldier|Woodwalker|Author|Drudge|Gameplayer|Miner|Gremlin|Pamarindo|Thusser|Fatemaker|Inventors
+&LIST_courts [xget(me,GNITCG)]=Spring|Summer|Autumn|Winter
+&LIST_Compacts [xget(me,GNITCG)]=Ashwood-Abbey|Barret-Commission|Bear-Lodge|Division-Six|Habibti-Ma|Heritage-House|Hunt-Club|Illuminated-Brotherhood|Keepers-of-the-Source|Long-Night|Loyalists-of-Thule|Maiden's-Blood-Sisterhood|Network-Zero|Night-Watch|Null-Mysteriis|Promethean-Brotherhood|Talbot-Group|The-Union|Utopia-Now
+&LIST_conspiracies [xget(me,GNITCG)]=Aegis-Kai-Doru|Ascending-Ones|Cainite-Heresy|Cheiron-Group|Faithful-of-Shulpae|Knights-of-Saint-Adrian|Knights-of-Saint-George|Les-Mysteres|Lucifuge|Malleus-Maleficarum|Task-Force:Valkyrie|Vanguard-Serial-Crimes-Unit
+&LIST_professions [xget(me,GNITCG)]=Academic|Artist|Athlete|Cop|Criminal|Detective|Doctor|Engineer|Executive|Hacker|Hitman|Journalist|Laborer|Occultist|Outdoorsman|Professional|Religious-Leader|Scientist|Socialite|Soldier|Technician|vagrant
+&LIST_manifestations [xget(me,GNITCG)]=Boneyard|Caul|Curse|Marionette|Oracle|Rage|Shroud|The-Pit
+&LIST_keys [xget(me,GNITCG)]=Tear-Stained|Stygian|Stillness|Stigmata|Pyre-Flame|Primeval|Phantasmal|Passion|Industrial|Grave-Dirt|Cold-Wind
+&LIST_guild [xget(me,GNITCG)]=Maa-Kep|Mesen-Nebu|Sesha-Hebsu|Su-Menent|Tef-Aabhi
+&LIST_judges-ab [xget(me,GNITCG)]=Akhi|Hepet-Khet|Neb-Heru|Nekeb-Ka|Qerrti|Ruruti|Ser-Tiku|Tutuutef
+&LIST_judges-ba [xget(me,GNITCG)]=An-Afkh|Heraf-Het|Neb-Abitu|Nefer-Tem|Neheb-Nefert|Ser-Kheru|Sket-Kheru|Utu-Nesert
+&LIST_judges-ka [xget(me,GNITCG)]=An-Hotep|Fentu|Hetch-Abu|Maa-Nantuuf|Neka-Hatu|Set-Qesu|Ta-Retinku|Uamenti
+&LIST_judges-ren [xget(me,GNITCG)]=Bastu|Kenemti|Khen-Inku|Neb-Imkhu|Sekhiru|Tem-Sepu|Uatch-Rekhet|Unem-Besek
+&LIST_judges-sheut [xget(me,GNITCG)]=Am-Khaibit|Artem-Khet|Her-Uru|Nebha|Nekkenhu|Tcheser-Tep|Tenemku|Unem-Sef
+&LIST_judge [xget(me,GNITCG)]=Akhi|Hepet-Khet|Neb-Heru|Nekeb-Ka|Qerrti|Ruruti|Ser-Tiku|Tutuutef|An-Hotep|Fentu|Hetch-Abu|Maa-Nantuuf|Neka-Hatu|Set-Qesu|Ta-Retinku|Uamenti|An-Afkh|Heraf-Het|Neb-Abitu|Nefer-Tem|Neheb-Nefert|Ser-Kheru|Sket-Kheru|Utu-Nesert|Bastu|Kenemti|Khen-Inku|Neb-Imkhu|Sekhiru|Tem-Sepu|Uatch-Rekhet|Unem-Besek|Am-Khaibit|Artem-Khet|Her-Uru|Nebha|Nekkenhu|Tcheser-Tep|Tenemku|Unem-Sef
+&LIST_incarnation [xget(me,GNITCG)]=Destroyer|Guardian|Messenger|Psychopomps
+&LIST_agenda [xget(me,GNITCG)]=Inquisitors|Integrators|Saboteurs|Tempters|Uncalled
+th Okay, all the data is loaded. You need to load Merits, Coils of the Dragon, Cruac Rituals, Theban Sorcery, Devotions, Lodges, Gifts, Rites, Legacies, Entitlements, Contracts, Oaths, Endowments, Tactics, Ceremonies, Embeds and Exploits. These types are already in the system and waiting for your data.
+&LIST_STATS [xget(me,GNITCG)]=Agendas Arcana Auspice Ceremonies Clans Coils Compacts Conspiracies Contracts Courts Cruac Devotions Embeds Endowments Entitlements Exploits Gifts Guilds Judges-Ab Judges-Ba Judges-Ka Judges-Ren Judges-Sheut Keys Kiths-Beast Kiths-Darkling Kiths-Elemental Kiths-Fairest Kiths-Ogre Kiths-Wizened Legacies Lodges Manifestations Mental-Attributes Mental-Skills Merits Oaths Physical-Attributes Physical-Skills Professions Rites Social-Attributes Social-Skills Tactics Templates Theban Tribes
+&LIST_BREED [xget(me,GNITCG)]=
+&LIST_SPECIES [xget(me,GNITCG)]=
+&LIST_FAVORS [xget(me,GNITCG)]=
+&LIST_GIFTS [xget(me,GNITCG)]=
+&LIST_BEAST-MAGIC [xget(me,GNITCG)]=
+&LIST_ASPECTS [xget(me,GNITCG)]=
+th NWOD Drop in Installed
+@set me=GNITCG:

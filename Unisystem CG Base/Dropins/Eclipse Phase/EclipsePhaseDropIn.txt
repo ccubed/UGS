@@ -1,0 +1,26 @@
+@	Eclipse Phase Drop In
+@	Coded by: Gizmo AKA Ourea, Alzie
+@	Email: ccubed.techno@gmail.com
+@	Date Last Touched: 10/27/14
+@----------------------------------------------------------------------------
+@	Purpose: A Drop in for the Eclipse Phase RPGs to work with the Unisystem Base
+@	Note: This system requires the Specialty Modifications. See SpeciltyMod.
+@----------------------------------------------------------------------------
+
+@set me=quiet
+th [ansi(hw,Setting up system for Eclipse Phase! Jacking in!)]
+th [if([num(CG Library)],[set(me,GNITCG:[num(CG Library)])],Didn't find the CG Library. This install will fail.)]
+&LIST_BACKGROUNDS [xget(me,GNITCG)]=Drifter|Fall Evacuee|Hyperelite|Infolife|Isolate|Lost|Lunar Colonist|Martian|Original Space Colonist|Re-Instantiated|Scumborn|Uplift
+&LIST_FACTIONS [xget(me,GNITCG)]=Anarchist|Argonaut|Barsoomian|Brinker|Criminal|Extropian|Hypercorp|Jovian|Lunar|Mercurial|Scum|Socialite|Titanian|Ultimate|Venusian
+&LIST_APTITUDES [xget(me,GNITCG)]=Cognition|Coordination|Intuition|Reflexes|Saavy|Somatics|Willpower
+&LIST_MORPH-TYPES [xget(me,GNITCG)]=Biomorph|Pods|Synthetic Morphs
+&LIST_BIOMORPHS [xget(me,GNITCG)]=Flat|Splicer|Exalt|Menton|Olympian|Sylph|Bouncer|Fury|Futura|Ghost|Neotenic|Remade|Ruster|Neo-Avian|Neo-Hominid|Octomorph
+&LIST_PODS [xget(me,GNITCG)]=Pleasure Pod|Worker Pod|Novacrab
+&LIST_SYNTHETIC-MORPHS [xget(me,GNITCG)]=Case|Synth|Arachnoid|Dragonfly|Flexbot|Reaper|Slitheroid|Swarmanoid|Infomorph
+&LIST_TRAITS-POSITIVE [xget(me,GNITCG)]=Adaptability|Allies|Ambidextrous|Animal Empathy|Brave|Common Sense|Danger Sense|Direction Sense|Eidetic Memory|Exceptional Aptitude|Expert|Fast Learner|First Impression|Hyper Linguist|Improved Immune System|Innocuous|Limber|Math Wiz|Natural Immunity|Pain Tolerance|Patron|Psi|Psi Chameleon|Psi Defense|Rapid Healer|Right at Home|Second Skin|Situational Awareness|Striking Looks|Tough|Zoosemiotics
+&LIST_TRAITS-NEGATIVE [xget(me,GNITCG)]=Addiction|Aged|Bad Luck|Blacklisted|Black Mark|Combat Paralysis|Edited Memories|Enemy|Feeble|Frail|Genetic Defect|Identity Crisis|Illiterate|Immortality Blues|Implant Rejection|Incompetent|Lemon|Low Pain Tolerance|Mental Disorder|Mild Allergy|Modified Behavior|Morphing Disorder|Neural Damage|No Cortical Stack|Oblivious|On the Run|Psi Vulnerability|Real World Naivete|Severe Allergy|Slow Learner|Social Stigma|Timid|Unattractive|Uncanny Valley|Unfit|VR Vertigo|Weak Immune System|Zero-G Nausea
+&LIST_SKILLS [xget(me,GNITCG)]=Academics|Animal Handling|Art|Beam Weapons|Blades|Climbing|Clubs|Control|Deception|Demolitions|Disguise|Exotic Melee Weapon|Exotic Ranged Weapon|Flight|Fray|Free Fall|Freerunning|Gunnery|Hardware|Impersonation|Infiltration|Infosec|Interest|Interfacing|Intimidation|Investigation|Kinesics|Kinetic Weapons|Language|Medicine|Navigation|Networking|Palming|Perception|Persuasion|Pilot|Profession|Programming|Protocol|Psi Assault|Psychosurgery|Research|Scrounging|Seeker Weapons|Sense|Spray Weapons|Swimming|Throwing Weapons|Unarmed Combat
+&LIST_STATS [xget(me,GNITCG)]=Backgrounds Factions Aptitudes Morph-Types Biomorphs Pods Synthetic-Morphs Traits-Positive Traits-Negative Skills
+th [ansi(hw,All done!)]
+@set me=GNITCG:
+@set me=!quiet

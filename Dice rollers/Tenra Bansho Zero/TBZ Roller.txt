@@ -1,0 +1,35 @@
+@	Tenra Bansho Zero Dice Roller
+@	Coded by: Gizmo AKA Ourea, Alzie
+@	Email: ccubed.techno@gmail.com
+@	Date Last Touched: 10/24/2014
+@----------------------------------------------------------------------------
+@	Purpose: Dice Roller in Softcode for the Tenra Bansho Zero RPG System.
+@	Note: Please only install one of these. One is made for Penn, the other is for all others.
+@	By default these do not read player sheets. These are meant to be general purpose rollers.
+@----------------------------------------------------------------------------
+
+
+-- Mux/Rhost/Others with lrand --
+
+@set me=quiet
+th [ansi(hw,Making TBZ Roller.)]
+@create TBZ Roll
+@set TBZ Roll=!no_command safe
+&CMD.ROLL TBZ Roll=$+roll *:@assert [gt(words(%0,:),1)]={@pemit %#=[ansi(hr,ROLL:)]%bSyntax is +roll Dice to Roll\:Skill Rank};@pemit %#=[u(HEADER)]%R[u(F.RESULTS,[before(%0,:)],[after(%0,:)])]%R[u(FOOTER)]
+&F.RESULTS TBZ Roll=[setq(A,0)][setq(B,[sort([lrand(1,6,%0)])])][iter(%qB,[if(lte(%i0,%1),[setq(C,%qC[ansi(hg,%i0)]%b)][setq(A,[inc(%qA)])],[setq(C,%qC[ansi(hx,%i0)]%b)])], ,@@)][u(F.DISPLAY.RESULTS,%qC,%qA)]
+&F.DISPLAY.RESULTS TBZ Roll=[space(15)]%0%R[space(15)]Sux: %1
+@set me=!quiet
+th [ansi(hw,TBZ Roller Made. Stick it in your master room. It does not need staff permissions unless you code it to read player sheets.)]
+
+
+-- Pennmush/Others without lrand --
+
+@set me=quiet
+th [ansi(hw,Making TBZ Roller.)]
+@create TBZ Roll
+@set TBZ Roll=!no_command safe
+&CMD.ROLL TBZ Roll=$+roll *:@assert [gt(words(%0,:),1)]={@pemit %#=[ansi(hr,ROLL:)]%bSyntax is +roll Dice to Roll\:Skill Rank};@pemit %#=[u(HEADER)]%R[u(F.RESULTS,[before(%0,:)],[after(%0,:)])]%R[u(FOOTER)]
+&F.RESULTS TBZ Roll=[setq(A,0)][setq(B,[sort([iter(lnum(1,%0),rand(1,6),%b,[space(0)])])])][iter(%qB,[if(lte(%i0,%1),[setq(C,%qC[ansi(hg,%i0)]%b)][setq(A,[inc(%qA)])],[setq(C,%qC[ansi(hx,%i0)]%b)])], ,[space(0)])][u(F.DISPLAY.RESULTS,%qC,%qA)]
+&F.DISPLAY.RESULTS TBZ Roll=[space(15)]%0%R[space(15)]Sux: %1
+@set me=!quiet
+th [ansi(hw,TBZ Roller Made. Stick it in your master room. It does not need staff permissions unless you code it to read player sheets.)]

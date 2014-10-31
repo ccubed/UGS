@@ -1,0 +1,15 @@
+@	Eclipse Phase Dice Roller
+@	Coded by: Gizmo AKA Ourea, Alzie
+@	Email: ccubed.techno@gmail.com
+@	Date Last Touched: 10/27/14
+@----------------------------------------------------------------------------
+@	Purpose: A Dice Roller for Eclipse Phase. Does not read sheets, general purpose
+@----------------------------------------------------------------------------
+
+@set me=quiet
+th [ansi(hw,Making Eclipse Phase Roller.)]
+@create EclipsePhase Roll
+@set EclipsePhase Roll=!no_command safe
+&CMD.ROLL EclipsePhase Roll=$+roll *:@pemit %#=[HEADER(Roll Results)]%R[setq(A,[rand(1,100)])]%R[if(and(lt(%qA,%0),not(eq(%qA,99))),[ansi(hg,%qA Success)],[ansi(hr,%qA Failure)])]%R[ansi(hw,Target was:)] [ansi(hx,%0)]%R[FOOTER()]
+@set me=!quiet
+th [ansi(hw,EclipsePhase Roller Made. Stick it in your master room. It does not need staff permissions unless you code it to read player sheets.)]

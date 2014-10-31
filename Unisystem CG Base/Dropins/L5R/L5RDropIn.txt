@@ -1,0 +1,9 @@
+@	L5R Drop In
+@	Coded by: Gizmo AKA Ourea, Alzie
+@	Email: ccubed.techno@gmail.com
+@	Date Last Touched: 3/16/2014
+@----------------------------------------------------------------------------
+@	Purpose: A Drop In for L5R that sets the system up for running an L5R game
+@----------------------------------------------------------------------------
+
+@pemit me=[ansi(hw,Setting Up Database\, Tighten your pantaloons.)]

@@ -1,0 +1,15 @@
+L5R Dice Roller Notes
+Syntax: +roll/mods X K Y
+Roll X Dice and Keep Y highest (10 sided)
+
+Modifiers:
+Explode - if they roll the number, roll another dice and add to that number.
+Low - keep lowest numbers instead of highest
+Emphasis - 4e only, reroll 1's
+
+TBZ Dice Roller Notes
+Syntax: +roll X:Y
+Syntax: Roll Attribute dice, sux are any dice equal or less than skill (6 sided)
+
+Modifiers:
+None

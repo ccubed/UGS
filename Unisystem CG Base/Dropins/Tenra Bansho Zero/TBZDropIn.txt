@@ -1,0 +1,20 @@
+@	Tenra Bansho Zero Dropin
+@	Coded by: Gizmo AKA Ourea, Alzie
+@	Email: ccubed.techno@gmail.com
+@	Date Last Touched: 3/16/2014
+@----------------------------------------------------------------------------
+@	Purpose: A Drop In for L5R that sets the system up for running a Tenra Bansha Zero Game
+@----------------------------------------------------------------------------
+
+@set me=quiet
+th [ansi(hw,Samurai incoming! Prepare the armour riders!)]
+th [if([num(CG Library)],[set(me,GNITCG:[num(CG Library)])],Didn't find the CG Library. This install will fail.)]
+&LIST_ATTRIBUTES [xget(me,GNITCG)]=Body|Agility|Senses|Knowledge|Spirit|Empathy|Station
+&LIST_GENERAL-SKILLS [xget(me,GNITCG)]=Unarmed Combat|Movement|Melee Weapons|Evasion|Stealth|First Aid|Notice|Marksman|Pursuit|Information|Willpower|Persuasion|Pillow Arts
+&LIST_SPECIALIST-SKILLS [xget(me,GNITCG)]=Wormchain|Criminal Arts|Ninjutsu|Forgery|Onmyojutsu|Art of War|Kugutsu Skill|Resonance|Interface|Buddhist Magic|Perform|Etiquette|Shinto|Strategy|Art of Rule
+&LIST_ARCHETYPES [xget(me,GNITCG)]=Hard Luck|Doctor|Healer|Kabukimono|Punk|Traveling Performer|Thief|Playboy|Harlot|Concubine|Vassal Servant|Wanderer|Court Servant|Aristocrat|Princess|Swordmaster|Paragon|Mercenary|Soulgem Rifleman|Gunlancer|Lordless Soldier|Assassin|Dragoon|Ayakashi Hunter|Weapon Collector|Yoroi Armour Rider|Kimen Armour Rider|Former Armour Rider|Armour Hunter|Onmyoji-Taoist Sorcerer|Onmyoji Apprentice|Talisman-User|Shiki-Slinger|Kijin Shiki-Slinger|Samurai|Fallen Samurai|Kijin|Kongohki|Kimen Kongohki|Runaway Kongohki|Shinobi|Ninja Apprentice|Infiltrator|Annelidist|Annelid-Infested|Annelid-Hunter|Taira Agent|Meikyo Puppeteer|Priesthood Double Agent|Priesthood Zealot|Oni|Half-Oni|Oni Nussa|Oni-Blooded|Kugutsu|Kugutsu Runaway|Ayakashi|Half-Ayakashi|Elder|Kagemusha|Kugutsu Maker|Tactician|Buddhist Monk|Fallen Monk|The Fist of Acala|Fist of Merciful Kannon|Devoted Warrior-Monk
+&LIST_FATE-TYPES [xget(me,GNITCG)]=Goal|Emotion|Taboo|Secret|Misfortune|Other|Kongohki
+&LIST_FATES [xget(me,GNITCG)]=Misfortune: Death of your most precious|Goal: Protect the weak|Goal: Protect the weak|Emotion:  Must be the center of attention|Emotion:  Must be the center of attention|Emotion: Longing for a Family|Emotion: Hatred of hypocrisy|Emotion: Fear of loneliness|Emotion: Fear of loneliness|Fate: Other: Seeking death|Goal: To be truly free|Emotion: Loyalty to your domain|Emotion: Loyalty to your domain|Emotion: Loyalty to your domain|Taboo: killing|Goal: To know what is true strength|Emotion: Ambition|Goal: Attain ultimate skill|Taboo: Disloyalty|Emotion: Suspicious of power|Emotion: Emptiness|Emotion: Love of Riding (Personal Mount)|Fate: Hatred of Ayakashi|Goal: Collect Unique Weapons|Emotion: Affection for your armour|Emotion: Pride in your Armour|Emotion: Hatred of Yoroi Armours|Emotion: Look up to the strong|Goal: Satisfy your intellectual curiosity|Goal: Improve your onmyojutsu skills|Emotion: Hatred of Samurai|Emotion: Hostility towards classical onmyoji|Emotion: Research the way of onmyoji|Emotion: Hatred of Weakness|Taboo: Samurai Transformation|Emotion: Sympathy for the weak|Kongohki: Sealed memory|Kongohki: Sealed memory|Emotion: Fear of yourself|Misfortune: Property of the clan|Emotion: Yearning for freedom|Other: Skeptic|Emotion: Affection for annelids|Emotion: Hatred of annelids|Emotion: Hatred of annelids|Emotion: Loyalty to the court|Emotion: Hatred of kongohki|Emotion: Hatred of priesthood|Emotion: Loyalty towards the priesthood|Goal: Coexist with humans|Emotion: Half-oni inferiority complex|Emotion: Hatred of the oni|Emotion: Looking up to the oni|Secret: No one knows you are a kugutsu|Emotion: Loneliness|Emotion: Curiosity towards people|Secret: You are a half-ayakashi|Emotion: Times are changing|Emotion: Loyalty to your master|Goal: Knowing the meaning of true beauty|Emotion: Hatred of war|Taboo: Disobeying the Precepts|Goal: Revel in danger|Taboo: Fighting|Goal: To be the strongest in all of tenra|Goal: Save all sentient beings
+&LIST_STATS [xget(me,GNITCG)]=Attributes General-Skills Specialist-Skills Archetypes Fate-Types
+th [ansi(hw,Done!)]
+@set me=!quiet

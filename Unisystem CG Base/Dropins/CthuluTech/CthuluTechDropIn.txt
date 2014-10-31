@@ -1,0 +1,21 @@
+@	CthuluTech Drop In
+@	Coded by: Gizmo AKA Ourea, Alzie
+@	Email: ccubed.techno@gmail.com
+@	Date Last Touched: 10/26/14
+@----------------------------------------------------------------------------
+@	Purpose: A Drop In for CthuluTech that sets up the system for running that type of game
+@	Note: This system requires the Specialty Modifications. See SpeciltyMod.
+@----------------------------------------------------------------------------
+
+@set me=quiet
+th [ansi(hw,Setting up system for CthuluTech! Crapped Pants incoming!)]
+th [if([num(CG Library)],[set(me,GNITCG:[num(CG Library)])],Didn't find the CG Library. This install will fail.)]
+&LIST_ATTRIBUTES [xget(me,GNITCG)]=Agility|Intelligence|Perception|Presence|Strength|Tenacity
+&LIST_SKILLS [xget(me,GNITCG)]=Appraisal|Arcanotechnician|Arcanotech Engineering|Armorer|Artist|Athletics|Bureaucracy|Business|Communications|Computer|Criminal|Culture (Ancient Human Civilization)|Culture (Military Culture)|Culture (Nazzadi Culture)|Demolitions|Education|Engineering|History|Hobby|Intimidate|Language (Bavarian German)|Language (Business Jargon)|Language (Canadian French)|Language (Engineering Jargon)|Language (Medical Jargon)|Language (Military Jargon)|Language (New England)|Larceny|Law Enforcement|Literacy|Medicine|Misdirect|Munitions|Observation|Occult|Performance|Persuade|Pilot|Regional Knowledge|Research|Savoir-Faire|Science (Earth)|Science (Life)|Science (Physical)|Security|Seduction|Stealth|Streetwise|Surveillance|Survival|Technician|Trivia
+&LIST_COMBAT-SKILLS [xget(me,GNITCG)]=Armed Fighting|Dodge|Fighting|Marksman|Support Weapons|Thrown Weapons
+&LIST_ASSETS [xget(me,GNITCG)]=Acute Senses (Hearing)|Acute Senses (Smell-Taste)|Acute Senses (Sight)|Acute Senses (Tactice Sense)|Alluring|Ally|Ambidextrous|Authority|Commendation|Common Sense|Contact|Driven|Double Jointed|Efficient Immune System|Efficient Metabolism|Egghead|Eidetic Memory|Elite|Famous Incident|Fast|Fearless|High Pain Threshold|Innovative|Internal Clock|Internal Compass|Latent Para-Psychic|Luck|Minor Empathy|Muse|Natural Athlete|Nightvision|Peripheral Vision|Quick Healer|Sexy Voice|Shrewd|Tager|Tager Exceptional|Wary|Wealth
+&LIST_DRAWBACKS [xget(me,GNITCG)]=Amnesia|Big Ego|Chronic Pain|Code|Compulsive Behavior|Coward|Damaged|Dark Secret|Debt|Delusions|Depressive|Disgraced|Duty|Engel Synthesis Interface|Fanatical|Fat|Foe|Grating Voice|Greed|Habit|Hunted|Impetuous|Ineptitude|Jealous|Lazy|Low Pain Threshold|Manic|Mean|Mute|Mystically Void|Oath|Obsessive|Outsider Trained|Phobia|Prejudice|Repellent|Rival|Sensory Impaired (Hearing)|Sensory Impaired (Smell-Taste)|Sensory Impaired (Sight)|Sensory Impaired (Tactile Sense)|Short Fuse|Skinny|Slow|Slow Healing|Tired|Truly Honest|Vengeful|Watched
+&LIST_STATS [xget(me,GNITCG)]=Attributes Skills Combat-Skills Assets Drawbacks
+th [ansi(hw,All done!)]
+@set me=GNITCG:
+@set me=!quiet

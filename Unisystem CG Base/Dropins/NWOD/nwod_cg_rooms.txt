@@ -1,0 +1,106 @@
+#Please note. Replace #REPLACE With the dbref of your room parent.
+#Pennmush will return you can't set that on some of the flags. Ignore it.
+
+th Creating CG Rooms
+th [set(me,oocn:[where(%#)])]
+
+@dig/teleport Character Generation=Character Generation;CG,OOC Nexus;O
+@parent here=#REPLACE
+@set here = NO_COMMAND
+&DESCRIBE here=Welcome to Character Generation for Shadow of Constantinople. This series of rooms will walk you through setting up your character and getting ready for play.  If you have any questions then be sure to ask on the Character Generation channel by using the following command:%R%R%T[ansi(hw,+cg <msg>)]%R%R%TCG uses a coloring format to help you through. Any text in [ansi(hy,yellow)] is a sheet attribute that you will set. Any text in [ansi(hw,white)] is a command that you can execute. Also note that when you see anything with < and > that you should not include the < and > when entering your response. This is simply a way to indicate that whatever is between < and > is a placeholder for where you would put some information.%R%TThanks for playing!
+@set here/DESCRIBE=no_command visual prefixmatch public nearby
+
+@dig/teleport CG - Demographics=Demographics;N,Character Generation;O
+@parent here=#REPLACE
+@set here = NO_COMMAND
+&DESCRIBE here=In this room, you're going to put in some demographics that will describe your character. These aren't things that affect your sheet but they give staff a better idea of what your character is.%R%R%TFirst, your [ansi(hy,Concept)] should be a short sentence describing your character. This can be as simple as 'A punk rockstar' or as creative as 'A sanctified daeva ballerina.' It could even simply be your character type in the vein of 'Lancea Sanctum Mekhet.'%R%TSecond, your [ansi(hy,Full Name)] is simply your full name. The last and first name you have.%R%TThird, your [ansi(hy,Birthday)] is when your character was born. We prefer that this be entered in the format Month Day Year. Whether you do that by using the numbers as in 7/1/12 or by writing it out is up to you.%R%TFourth, we'll ask for an [ansi(hy,email)]. Rest assured that this email is only used and seen by staff. We will not send you unannounced emails, but email is an effective way to track alts and to verify ownership of a character if you ever forget your password.%R%TTo set these items, use the following commands.%R%R%T[ansi(hw,+concept <text>)] - set your concept to <text>%R%T[ansi(hw,+fullname <text>)] - Set your full name to <text>%R%T[ansi(hw,+birthday <text>)] - Set your birthday to <text>%R%T[ansi(hw,+email <text>)] - Set your email to <text>
+@set here/DESCRIBE=no_command visual prefixmatch public nearby
+
+@dig/teleport CG - Attributes=Attributes;N,Demographics;O
+@parent here=#REPLACE
+@set here = NO_COMMAND
+&DESCRIBE here=In this room you'll set your attributes and select priorities. Remember that New World of Darkness uses an attribute spread of [ansi(hy,9 Primary)], [ansi(hy,5 Secondary)] and [ansi(hy,3 Tertiary)]. Attributes are the biggest part of your character, sometimes more so than skills, because they also affect derived statistics.%R%R%TFirst, pick your [ansi(hy,Priorities)]. This determines how many points you get in your Social, Physical or Mental attributes.%R%TIf you want to know what attributes fall under these categories then you use [ansi(hw,+stat/list)]. Typing this will give you a list of stat categories you can get a list for. Three of these are Physical-Attributes, Social-Attributes and Mental-Attributes. If you want to see which attributes belong to the physical category you can type [ansi(hw,+stat/list Physical-Attributes)]. You can replace Physical-Attributes with any other stat type as listed for a listing of all stats of that type.%R%TSecond, you need to assign those points to your Attributes. Each attribute starts at 1. So assign a number of points equal to the number that category got based on your priority choices.%R%R%TThe commands to do these things are:%R%T[ansi(hw,+priorities XYZ)] - Set your priorities to XYZ. Only use the first letter. So Physical Mental Social would be PMS.%R%T[ansi(hw,+stat <attribute>=<level>)] - Set <attribute> to <level>. Attribute can be partial. The first matched attribute is what it sets.%R%T[ansi(hw,+bulkstat <attribute>=<level>|<attribute>=<level>)] - Set multiple attributes at once. Each entry in the list is evaluated and the given <attribute> is set to <level>. These items should be delimited by |.%R%T[ansi(hw,+sheet)] - To review you current choices.
+@set here/DESCRIBE=no_command visual prefixmatch public nearby
+
+@dig/teleport CG - Skills=Skills;N,Attributes;O
+@parent here=#REPLACE
+@set here = NO_COMMAND
+&DESCRIBE here=In this room, you'll set your initial skills. Remember that these skills are not meant to represent everything your character can do. It is expected that everyone with a driver's license can drive a car, the drive skill however is meant to represent a person who is better at driving a car than your average person. When making skill choices, remember this and know that you should be putting your points in the skills that your character performs better than their peers.%R%R%TNew World of Darkness uses a skill point distribution of [ansi(hy,13 Primary)], [ansi(hy,9 Secondary)] and [ansi(hy,5 Tertiary)]. Remember that you can see what skills are in each category by using [ansi(hw,+stat/list)].%R%R%TFirst, you'll need to set your priorities.%R%TSecond, you'll need to distribute your skill points to your various categories of skills.%R%TThird, you'll need to select your free specialties. You get 3 of them.%R%R%T[ansi(hw,+priorities XYZ)] - Set your priorities to XYZ. Only use the first letter. So Physical Mental Social would be PMS.%R%T[ansi(hw,+stat <skill>=<level>)] - Set <attribute> to <level>. Attribute can be partial. The first matched attribute is what it sets.%R%T[ansi(hw,+bulkstat <skill>=<level>|<skill>=<level>)] - Set multiple attributes at once. Each entry in the list is evaluated and the given <attribute> is set to <level>. These items should be delimited by |.%R%T[ansi(hw,+spec <skill>=<specialty name>)] - Add a specialty called <specialty name> to <skill>.%R%T[ansi(hw,+sheet)] - To review your current selections.
+@set here/DESCRIBE=no_command visual prefixmatch public nearby
+
+@dig/teleport CG - Turn of Fate=Turn of Fate;N,Skills;O
+@parent here=#REPLACE
+@set here = NO_COMMAND
+&DESCRIBE here=Welcome to the Turn of Fate. Here you decide just what you want to play. Each of these paths leads to a stretch of rooms designed to set template specific items and then usher you back into the communal parts of Character Generation.%R%R%T[ansi(hw,V)]ampire - If you want to be a vampire then head through the V exit%R%T[ansi(hw,M)]ortal - If you want to play a mortal, whether of the Mortal+ variety or straight mortal, then head through the M exit%R%T[ansi(hw,G)]houl - If you want to be a ghoul then head through the G exit
+@set here/DESCRIBE=no_command visual prefixmatch public nearby
+
+th [set(me,TOF:[where(%#)])]
+
+@dig/teleport CG - Vampire Demographics=Vampire Demographics;V,Turn of Fate;O
+@parent here=#REPLACE
+@set here = NO_COMMAND
+&DESCRIBE here=In this room, you'll set some important vampire demographics such as your Clan, Covenant and Bloodline. Remember that Bloodlines are not required and cost a permanent willpower dot to activate.%R%R%T[ansi(hw,+clan <clan>)] - Set your Clan to <Clan>%R%T[ansi(hw,+covenant <covenant>)] - Set your Covenant to <Covenant>.%R%T[ansi(hw,+bloodline <bloodline>)] - Set your bloodline to <bloodline>
+@set here/DESCRIBE=no_command visual prefixmatch public nearby
+
+@dig/teleport CG - Vampire Disciplines=Vampire Disciplines;N,Vampire Demographics;O
+@parent here=#REPLACE
+@set here = NO_COMMAND
+&DESCRIBE here=In this room, you'll set your initial CG discipline dots. Please follow the commands below to set your initial 3 discipline dots remember that at least one dot must be from a clan, if no bloodline, or bloodline, if you have one, discipline.%R%R%T[ansi(hw,+discipline <discipline>:<level>)] - Set <discipline> to <level>
+@set here/DESCRIBE=no_command visual prefixmatch public nearby
+
+@dig/teleport CG - Merits=Merits;N,Vampire Disciplines;V
+@parent here=#REPLACE
+@set here = NO_COMMAND
+&DESCRIBE here=In this room, you'll set your starting merits. You get 7 starting merits. You can also take flaws here by using the commands below. You can get up to 9 total merit points by having 3 flaws but no more.%R%R%T[ansi(hw,+merit <merit>:<level>/<text>)] - Set <merit> to <level>. <text> is optional and allows you to add a descriptor. IE: status:2/Covenant%R%T[ansi(hw,+flaw <name>)] - This sets a flaw on your sheet called <name> and adds 1 point to your merits count%R%R%T[ansi(hw,+merit !<merit>:<level>/<text>)] - Remove Merit at Level. If you have multiple of Merit then you can add in descriptor text. Please enter the full descriptor text.%R%T[ansi(hw,+flaw !<name>)] - Remove Flaw and remove a point. If removing this point makes you have more merits than points it won't allow you to remove the flaw
+@set here/DESCRIBE=no_command visual prefixmatch public nearby
+
+th [set(me,MertiRM:[where(%#)])]
+
+@dig/teleport CG - Background=Background;N,Merits;O
+@parent here=#REPLACE
+@set here = NO_COMMAND
+&DESCRIBE here=You've reached the background room. In this room you will set a Background for staff to approve. Please use the follow commands to do so.%R%R%T[ansi(hw,+bgadd <section>=<text>)] - Add <text> to the end of section number <section>%R%T[ansi(hw,+bgclear <section>)] - Clear section number <section> of all text%R%T[ansi(hw,+bghelp)] - See more commands for the Background system
+@set here/DESCRIBE=no_command visual prefixmatch public nearby
+
+@dig/teleport CG - Final Steps=Final Steps;N,Background;O
+@parent here=#REPLACE
+@set here = NO_COMMAND
+&DESCRIBE here=This is the final room in CG! You did it! Now we'll just need you to set a description and then you can get on back to the OOC Room! As a note, once you exit this room if you come back to Character Generation, your stats are [ansi(hr,NOT)] wiped. So feel free to enter and make changes.%R%R%T[ansi(hw,@desc me=<text>)] - Set your description to <text>. <text> is evaluated so you can use ansi for color and %%R and %%T for newline and tab respectively.
+@set here/DESCRIBE=no_command visual prefixmatch public nearby
+@open OOC Nexus;N=[xget(me,oocn)]
+
+@tel me=[xget(me,tof)]
+
+@dig/teleport CG - Mortal Demographics=Mortal Demographics;M,Turn of Fate;O
+@parent here=#REPLACE
+@set here = NO_COMMAND
+&DESCRIBE here=In this room, you'll set some important mortal demographics. There's not much to set here and all of it is optional.%R%R%T[ansi(hw,+type <type>)] - If you are a thaum, psychic or any special kind of mortal put what type you are here%R%t[ansi(hw,+define <defining merit>)] - If you are a Mortal+ psychic or thaumaturge, you get a defining merit for free. This merit is assumed to be the highest level of the merit.
+@set here/DESCRIBE=no_command visual prefixmatch public nearby
+
+@dig/teleport CG - Professional Training=Professional Training;N,Mortal Demographics;O
+@parent here=#REPLACE
+@set here = NO_COMMAND
+&DESCRIBE here=Mortals have access to a special merit called Professional Training. This merit gives you access to certain invaluable benefits to three skills called Asset Skills. On this game, we use all of the standard professions but also allow you to create custom professions. The commands in this room will allow you to set up your Professional Trianing information. If you do intend to get Professional Training, please skip this room.%R%R%T[ansi(hw,+profession <profession>)] - Set your profession to <profession>. If it is a built in profession your skills are automatically assigned. If it is not then you will need to also assign your asset skills.%R%T[ansi(hw,+assets <skill1> <skill2> <skill3>)] - Enter your three asset skills. Please note, you only gain access to your third asset skill with a Professional Training Merit of 3 or more.
+@set here/DESCRIBE=no_command visual prefixmatch public nearby
+@open Merits;N=[xget(me,MeritRM)],Professional Training;M
+
+@tel me=[xget(me,tof)]
+
+@dig/teleport CG - Ghoul Demographics=Ghoul Demographics;G,Turn of Fate;O
+@parent here=#REPLACE
+@set here = NO_COMMAND
+&DESCRIBE here=In this room you'll set some specific ghoul demographics. At the moment this is only your dormitor.%R%R%T[ansi(hw,+regnant <name>)] - Set your regnant(the person that ghouled you) to <name>
+@set here/DESCRIBE=no_command visual prefixmatch public nearby
+
+@dig/teleport CG - Ghoul Disciplines=Ghoul Disciplines;N,Ghoul Demographics;O
+@parent here=#REPLACE
+@set here = NO_COMMAND
+&DESCRIBE here=In this room you'll select 2 disciplines for your ghoul character. Keep in mind that 1 of these must come from one of your sire's clan's or bloodline's list of disciplines.%R%R%T[ansi(hw,+discipline <discipline>:<level>)] - Set <Discipline> to <level>
+@set here/DESCRIBE=no_command visual prefixmatch public nearby
+@open Merits;N=[xget(me,MeritRM)],Ghoul Disciplines;G
+
+@set me=oocn:
+@set me=tof:
+@set me=meritrm:
+
+th CG Created
