@@ -15,7 +15,7 @@ GNU Public License
 	
 3)	Where can I find more information about each system?
 
-	In each folder is a readme specifically tailored to each set of softcode.
+	Look for a readme in the folder or look at the code itself for an explanation.
 
 4)	Will you add X system or do Y?
 
@@ -24,6 +24,15 @@ GNU Public License
 	pull it into the main repository would be even better. That way everyone can have access
 	to the new system.
 
+5)	Why are there blank lines above and below all this code?
+
+	So the code pretty much assumes the existence of a [header()] and [footer()]. It's nice 
+	if the [header()] also accepts text like so: [header(Hi)]. As long as you have one of these
+	then you should be good. I don't think it's too much to ask for since I haven't yet
+	stumbled upon a game that doesn't have a built in header/footer. That's a pretty common
+	feature now-a-days.
+	
+	
 Copyright (C) 2014  Charles C Click
 
 This program is free software: you can redistribute it and/or modify

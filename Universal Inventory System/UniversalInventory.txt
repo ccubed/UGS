@@ -10,6 +10,8 @@
 @	[CATEGORY]_HEADINGS - This is the list of stats that appear in the category listing
 @	[CATEGORY]_STATS - This is the master list of all stats that appear in the full item listing
 @	[CATEGORY] - List of Item IDs
+@	CID - next free item id
+@	On Database: ID - Name/stats|stats|stats|etc
 @
 @	Commands:
 @	+inv - Shows you your items
@@ -17,6 +19,30 @@
 @	+inv/show category - show a list of all items in that category
 @	+inv/show id - show that specific item
 @	+inv/set player=id - add id to player's inventory. add a ! before id to remove
+@	+inv/addcat category - Add category to the list of categories
+@	+inv/headings category=space separated list of headings - set the headings for category
+@	+inv/stats category=space separated list of stats - set the stats for category
+@	+inv/add category=item name/| separated list of all stats - add a new item
 
 
-&CATEGORIES
+@set me=quiet
+@create Inventory Master
+@create Inventory Database
+th [set(Inventory Master,va:[num(Inventory Database)])]
+@tel Inventory Database=Inventory Master
+
+&CID Inventory Master=1
+&CMD.INV Inventory Master=$+inv:@pemit %#=[header([name(%#)]'s Inventory)]%R[if(hasattr(%#,INVITEMS),[u(DISP.INVITEMS,%#)],%R[center([ansi(hw,No Items)],78)]%R)]%R[footer()]
+&CMD.INV.LIST Inventory Master=$+inv/list:@pemit %#=[header(Master Item List)]%R[if(hasattr(%va,CATEGORIES),[u(DISP.CATLIST)],%R[center([ansi(hw,No Items in DB)],78)])]%R[footer()]
+&CMD.INV.SHOW Inventory Master=$+inv/show *:@switch [isint(%0)]=1,{@pemit %#=[header(Item Details)]%R[u(DISP.ITEMDETAILS,%0)]%R[footer()]},0,{@pemit %#=[header(Master Item List - %0)]%R[u(DISP.CATEGORY,%0)]%R[footer()]}
+&CMD.INV.SET Inventory Master=$+inv/set *=*:@assert [hasflag(%#,wizard staff royalty)];@assert [pmatch(%0)]={@pemit %#=[ansi(hr,INV:)]%bCan't find %0.};@assert [cand(isint(%1),hasattr(%va,%1))]={@pemit %#=[ansi(hr,INV:)]%bInvalid Item ID.};@switch [match(%1,!*)]=1,{@pemit %#=[u(F.REMOVEITEM,[pmatch(%0)],%1)]},0,{@pemit %#=[u(F.ADDITEM,[pmatch(%0)],%1)]}
+&CMD.INV.ADDCAT Inventory Master=$+inv/addcat *:
+&CMD.INV.HEADINGS Inventory Master=$+inv/headings *=*:
+&CMD.INV.STATS Inventory Master=$+inv/stats *=*:
+&CMD.INV.ADD Inventory Master=$+inv/add *=*/*:
+&DISP.INVITEMS Inventory Master=Show a person's inventory items
+&DISP.CATLIST Inventory Master=Show all categories
+&DISP.ITEMDETAILS Inventory Master=Show details on specific item
+&DISP.CATEGORY Inventory Master=Show a list of all items in category
+&F.REMOVEITEM Inventory Master=Remove item from player's inventory
+&F.ADDITEM Inventory Master=Add item to Player's inventory
