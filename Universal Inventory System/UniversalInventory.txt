@@ -11,18 +11,20 @@
 @	[CATEGORY] - List of Item IDs
 @	CID - next free item id
 @	On Database: ID - Name/stat:level|stat:level|etc
+@	On Players: INVITEMS - Stored as: ID:#|ID:#|ID:# etc
 @
 @	Commands:
 @	+inv - Shows you your items
 @	+inv/list - shows the list of all categories
 @	+inv/list category - show a list of all items in that category
 @	+inv/show id - show that specific item
-@	+inv/set player=id:value - add id to player's inventory. add a ! before id to remove. Value is optional but allows you to add more than one.
+@	+inv/set player=id:value - add id to player's inventory. add a ! before id to remove. Value is optional but allows you to add/remove more than one.
 @	+inv/addcat category - Add category to the list of categories
 @	+inv/headings category=heading - add heading to the list of headings displayed when someone uses +inv/list on category (headings should be one word though can have -)
 @	+inv/add category=item name - Add item name to category
 @	+inv/addstat id=stat:value - add a new stat with value to id
 @	+inv/remstat id=stat - remove stat from id
+@	+inv/editstat id=stat:value - change id's stat to value
 
 @ Developer Note: I finished this off with the intention of using it on pennmush, so you might need some minor changes to use it for tinymux.
 
@@ -35,15 +37,15 @@ th [set(Inventory Master,va:[num(Inventory Database)])]
 
 &CID Inventory Master=1
 
-&CMD.INV Inventory Master=$+inv:@pemit %#=[header([name(%#)]'s Inventory)]%R[if(hasattr(%#,INVITEMS),[iter(xget(%#,INVITEMS),[u(DISP.INVITEMS,%i0)], ,[space(0)])],%R[center([ansi(hw,No Items)],78)]%R)]%R[footer()]
+&CMD.INV Inventory Master=$+inv:@pemit %#=[header([name(%#)]'s Inventory)]%R[if(hasattr(%#,INVITEMS),[ljust(ID,5)][ljust(Name,25)][rjust(Amount,48)]%R%b[repeat(-,76)]%R[iter(xget(%#,INVITEMS),[u(DISP.INVITEM,%i0)],|,%R)],%R[center([ansi(hw,No Items)],78)]%R)]%R[footer()]
 
 &CMD.INV.LIST Inventory Master=$+inv/list:@pemit %#=[header(Master Item List)]%R[if(hasattr(%va,CATEGORIES),[iter(xget(%va,categories),[u(DISP.CATLIST,%i0)],|,%R)],%R[center([ansi(hw,No Items in DB)]%R,78)])]%R[footer()]
 
-&CMD.INV.LIST.CAT Inventory Master=$+inv/list *:@assert [strmatch(xget(%va,categories),*[edit(%0,%b,_)]*)]={@pemit %#=[ansi(hr,INV:)]%b%0 is not a valid category.};[setq(0,[xget(%va,[edit(%0,%b,_)])])][setq(1,[xget(%va,[edit(%0,%b,_)]_HEADINGS)])];@pemit %#=[header(%0)]%R[ljust(Name,30)][iter(%q1,[ljust(%i0,15)],|,[space(1)])]%R%b[repeat(-,76)]%R[iter(%q0,[u(DISP.CATITEM,%i0,%q1)], ,%R)]%R[footer()]
+&CMD.INV.LIST.CAT Inventory Master=$+inv/list *:@assert [strmatch(xget(%va,categories),*[edit(%0,%b,_)]*)]={@pemit %#=[ansi(hr,INV:)]%b%0 is not a valid category.};[setq(0,[xget(%va,[edit(%0,%b,_)])])][setq(1,[xget(%va,[edit(%0,%b,_)]_HEADINGS)])];@pemit %#=[header(%0)]%R[ljust(ID,5)][ljust(Name,25)][iter(%q1,[ljust(%i0,15)],|,[space(1)])]%R%b[repeat(-,76)]%R[iter(%q0,[u(DISP.CATITEM,%i0,%q1)], ,%R)]%R[footer()]
 
-&CMD.INV.SHOW Inventory Master=$+inv/show *: Show details on an individual item
+&CMD.INV.SHOW Inventory Master=$+inv/show *:@assert [hasattr(%va,%0)]={@pemit %#=[ansi(hr,INV:)]Invalid item ID.};@pemit %#=[header([before(xget(%va,%0),/)])]%R[if(t(after(xget(%va,%0),/)),[u(DISP.ITEMDETAILS,%0)],%R[center([ansi(hr,Nothing has been defined for this item.)],78)]%R)]%R[footer()]
 
-&CMD.INV.SET Inventory Master=$+inv/set *=*:@assert [or(hasflag(%#,wizard),hasflag(%#,staff))];@assert [pmatch(%0)]={@pemit %#=[ansi(hr,INV:)]%bCan't find %0.};@assert [cand(isint(%1),hasattr(%va,%1))]={@pemit %#=[ansi(hr,INV:)]%bInvalid Item ID.};@switch [match(%1,!*)]=1,{@pemit %#=[u(F.REMOVEITEM,[pmatch(%0)],%1)]},0,{@pemit %#=[u(F.ADDITEM,[pmatch(%0)],%1)]}
+&CMD.INV.SET Inventory Master=$+inv/set *=*:@assert [or(hasflag(%#,wizard),hasflag(%#,staff))];@assert [pmatch(%0)]={@pemit %#=[ansi(hr,INV:)]%bCan't find %0.};@assert [hasattr(%va,[after([before(%1,:)],!)])]={@pemit %#=[ansi(hr,INV:)]%bInvalid Item ID.};@switch [match(%1,!*)][t(after(%1,:))]=10,{@pemit %#=[u(F.REMOVEITEM,[pmatch(%0)],[after(%1,!)],1)]},00,{@pemit %#=[u(F.ADDITEM,[pmatch(%0)],%1,1)]},11,{@pemit %#=[u(F.REMOVEITEM,[pmatch(%0)],[after([before(%1,:)],!)],[after(%1,:)])]},01,{@pemit %#=[u(F.ADDITEM,[pmatch(%0)],[before(%1,:)],[after(%1,:)])]}
 
 &CMD.INV.ADDCAT Inventory Master=$+inv/addcat *:@assert [or(hasflag(%#,wizard),hasflag(%#,staff))];[set(%va,categories:[setunion(xget(%va,categories),[edit(%0,%b,_)],|)])];@pemit %#=[ansi(hw,INV:)]%bAdded %0 to Inventory Categories.
 
@@ -55,25 +57,27 @@ th [set(Inventory Master,va:[num(Inventory Database)])]
 
 &CMD.INV.REMSTAT Inventory Master=$+inv/remstat *=*:@assert [or(hasflag(%#,wizard),hasflag(%#,staff))];@assert [hasattr(%va,%0)]={@pemit %#=[ansi(hr,INV:)]%b%0 is not a valid Item ID.};@assert [u(F.STATINDEX,[after(xget(%va,%0),/)],%1)]={@pemit %#=[ansi(hr,INV:)]%b%1 is not a valid stat for Item ID %0.};[u(F.REMSTAT,[after(xget(%va,%0),/)],%1,%0)];@pemit %#=[ansi(hw,INV:)]%bRemoved %1 from Item ID %0's stats.
 
+&CMD.INV.EDITSTAT Inventory Master=$+inv/editstat *=*:@assert [or(hasflag(%#,wizard),hasflag(%#,staff))];@assert [hasattr(%va,%0)]={@pemit %#=[ansi(hr,INV:)]%b%0 is not a valid Item ID.};@assert [u(F.STATINDEX,[after(xget(%va,%0),/)],[before(%1,:)])]={@pemit %#=[ansi(hr,INV:)]%b%1 is not a valid stat for Item ID %0.};[u(F.EDITSTAT,[after(xget(%va,%0),/)],[before(%1,:)],%0,%1)];@pemit %#=[ansi(hw,INV:)]%bChanged Item ID %0's [before(%1,:)] to [after(%1,:)].
+
 &CMD.INV.COPY Inventory Master=$+inv/addcopy *=*:@assert [or(hasflag(%#,wizard),hasflag(%#,staff))];@assert [hasattr(%va,%0)]={@pemit %#=[ansi(hr,INV:)]%b%0 is not a valid item ID.};[setq(0,[xget(me,cid)])][set(me,cid:[inc(xget(me,cid))])][set(%va,%q0:%1/[after(xget(%va,%0),/)])];@pemit %#=[ansi(hw,INV:)]%bMade a copy of ID %0 as ID %q0 with name %1.
 
-@ Display function for showing the individual items in a person's inventory
-&DISP.INVITEM Inventory Master=Show a person's inventory items
+@ Display function for showing the individual items in a person's inventory. Passed ID:#
+&DISP.INVITEM Inventory Master=[setq(0,[before(%0,:)])][ljust(%q0,5)][ljust([before(xget(%va,%q0),/)],25)][rjust([after(%0,:)],48)]
 
 @ Display function for showing the individual categories and their item total
 &DISP.CATLIST Inventory Master=[ljust([edit(%0,_,%b)],39)][rjust([if(hasattr(%va,%0),[words([xget(%va,%0)])],0)] Items,39)]
 
 @ Display function for showing full details of an item
-&DISP.ITEMDETAILS Inventory Master=Show details on specific item
+&DISP.ITEMDETAILS Inventory Master=[setq(0,[after(xget(%va,%0),/)])][iter(%q0,[ljust(before(%i0,:),30)][rjust(after(%i0,:),5)][space(4)][if(not(mod(inum(0),2)),%R)],|,[space(0)])]
 
 @ Display function for the items in each category.
-&DISP.CATITEM Inventory Master=[ljust([before(xget(%va,%0),/)],30)][iter(%1,[ljust([after([u(F.PULLSTAT,[after([xget(%va,%0)],/)],%i0)],:)],15)],|,[space(1)])]
+&DISP.CATITEM Inventory Master=[ljust(%0,5)][ljust([before(xget(%va,%0),/)],25)][iter(%1,[ljust([after([u(F.PULLSTAT,[after([xget(%va,%0)],/)],%i0)],:)],15)],|,[space(1)])]
 
-@ Function to remove items from a player's inventory
-&F.REMOVEITEM Inventory Master=Remove item from player's inventory
+@ Function to remove items from a player's inventory. Passed Player dbref as %0, item id as %1, # to remove as %2
+&F.REMOVEITEM Inventory Master=[setq(0,[xget(%0,INVITEMS)])][setq(1,[element(%q0,%1*,|)])][setq(2,[extract(%q0,%q1,1,|)])][switch([lt([sub([after(%q2,:)],%2)],0)],1,[set(%0,INVITEMS:[ldelete(%q0,%q1,|)])][ansi(hw,INV:)]%bRemoved [before(xget(%va,%1),/)] from [name(%0)]'s Inventory because none remained.,0,[setq(3,[ldelete(%q0,%q1,|)])][set(%0,INVITEMS:[setunion(%q3,%1:[sub([after(%q2,:)],%2)],|)])][ansi(hw,INV:)]%bRemoved %2 [before(xget(%va,%1),/)] from [name(%0)]'s Inventory.)]
 
-@ Function to add items to a player's inventory
-&F.ADDITEM Inventory Master=Add item to Player's inventory
+@ Function to add items to a player's inventory. Passed Player dbref as %0, item id as %1, # to add as %2
+&F.ADDITEM Inventory Master=[setq(0,[xget(%0,INVITEMS)])][set(%0,INVITEMS:[setunion(%q0,%1:%2,|)])][ansi(hw,INV:)]%bAdded [before(xget(%va,%1),/)] to [name(%0)]'s Inventory.
 
 @ Add the first stat to an item
 &F.ADDSTAT.FIRST Inventory Master=[set(%va,%0:[xget(%va,%0)]/%1)]
