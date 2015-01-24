@@ -1,0 +1,12 @@
+@	Universal Inventory System: Voucher System Patch
+@	Coded by: Gizmo AKA Ourea, Alzie
+@	Email: ccubed.techno@gmail.com
+@	Date Last Touched: 1/23/2015
+@----------------------------------------------------------------------------
+@	Purpose: Patches the Universal Inventory System to allow a voucher like system.
+@----------------------------------------------------------------------------
+@	Layout:
+@	
+@
+@	Commands:
+@	

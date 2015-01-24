@@ -1,7 +1,7 @@
 @	Universal Inventory System
 @	Coded by: Gizmo AKA Ourea, Alzie
 @	Email: ccubed.techno@gmail.com
-@	Date Last Touched: 10/31/2014
+@	Date Last Touched: 1/23/2015
 @----------------------------------------------------------------------------
 @	Purpose: Inventory System that can be used for any game system.
 @----------------------------------------------------------------------------
