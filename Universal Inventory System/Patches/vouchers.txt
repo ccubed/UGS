@@ -6,7 +6,34 @@
 @	Purpose: Patches the Universal Inventory System to allow a voucher like system.
 @----------------------------------------------------------------------------
 @	Layout:
-@	
+@		On Database:
+@			VOUCHER ID: Player DBREF that currently owns it
+@
+@		On Voucher:
+@			INVITEMS: ID:AMT|ID:AMT| etc same as inventory system
+@
+@		On Voucher Parent:
+@			Globals: Includes some format parents. Look, describe parents etc.
 @
 @	Commands:
-@	
+@	   Staff:
+@			+voucher/create id:amt id:amt id:amt etc - create a new voucher with the given item ID's and amounts. Will error out if any invalid ID's exist. amt is optional, defaults to 1.
+@			+voucher/delete id=reason - delete the voucher at ID and remove it from the player's inventory. This outputs a message to that player as well.
+@									   reason is optional but outputs in addition to the base 'Voucher has been destroyed' that goes to the player.
+@			+voucher/edit id=item id:amt - individually remove items from a voucher. Staff only, allows remote management of voucher inventories.
+@			+voucher - shows a list of all current vouchers
+@			+voucher ID - shows details on a voucher. Who owns it and what's in it.
+@
+@	   Player:
+@			+voucher/trans ID=Player/reason - Player/staff command to transfer vouchers between players. Once a player has a voucher, it can be freely transferred. Reason required. Tracked.
+@
+
+@set me=quiet
+@create Voucher Master
+@create Voucher Database
+@create Voucher Parent
+th [set(Voucher Master,va:[num(Voucher Database)])]
+th [set(Voucher Master,vb:[num(Voucher Parent)])]
+@tel Voucher Database=Voucher Master
+@tel Voucher Parent=Voucher Master
+
