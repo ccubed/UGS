@@ -42,7 +42,7 @@ th [set(Library Controller,vb:[num(CG Description DB)])]
 
 &CMD.STAT.LIST.BASE Library Controller=$+stat/list:@pemit %#=[header(Stat Types)]%RI have the following stat types:%R%T[itemize(xget(%va,LIST_STATS))]%R[footer()]
 
-&CMD.STAT.LIST.SPECIFIC Library Controller=$+stat/list *:@assert [hasattr(%va,LIST_[edit(%0,%b,-)])]={@pemit %#=[ansi(hr,ALERT:)]%b%0 doesn't match any current stat type.};@pemit %#=[header(List of %0)]%RI have the following [ucstr(%0)]:%R%R[iter(setr(a,xget(%va,LIST_[edit(%0,%b,-)])),[ansi([if(mod(inum(0),2),hw,ny)],[ljust([edit(%i0,-,%b)],50)][if(not(mod(inum(0),2)),%R)])],|,)][if(mod(words(%qA),2),%R)]%R[footer()]
+&CMD.STAT.LIST.SPECIFIC #4079=$+stat/list *:@assert [hasattr(%va,LIST_[edit(%0,%b,-)])]={@pemit %#=[ansi(hr,ALERT:)]%b%0 doesn't match any current stat type.};@pemit %#=[header(List of %0)]%RI have the following [ucstr(%0)]:%R%R[iter(setr(a,xget(%va,LIST_[edit(%0,%b,-)])),[ansi([if(mod(inum(0),2),hw,ny)],[ljust([edit(%i0,-,%b)],39)][if(not(mod(inum(0),2)),%R)])],|,[space(0)])]%R[footer()]
 
 &CMD.STAT.DISPLAY Library Controller=$+stat/display *=*:@assert [isstaff(%#)]={pemit %#=[ansi(hr,DENIED:)]%bStaff only.};@assert [match(xget(%va,LIST_STATS),[edit(%0,%b,-)])]={@pemit %#=[ansi(hr,ALERT:)]%bThat's not a valid stat type.};@assert [match(Single Dual,%1)]={@pemit %#=[ansi(hr,ALERT:)]%bDisplay type can only be Single or Dual.};[set(%va,DISPLAY_[edit(%0,%b,-)]:%1)];@pemit %#=[ansi(hw,NOTICE:)]%b%0's display type set to %1.
 
