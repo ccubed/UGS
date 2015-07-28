@@ -1,0 +1,26 @@
+@	Savage Worlds Dice Roller
+@	Coded by: Gizmo AKA Ourea, Alzie
+@	Email: ccubed.techno@gmail.com
+@	Date Last Touched: 7/28/2015
+@----------------------------------------------------------------------------
+@	Purpose: Dice Roller in Softcode for the Savage Worlds RPG System.
+@	By default these do not read player sheets. These are meant to be general purpose rollers.
+@----------------------------------------------------------------------------
+
+@set me=quiet
+th [ansi(hw,Making Savage Worlds Roller.)]
+@create SW Roller
+@set SW Roller=!no_command safe
+&CMD.ROLL_NORMAL SW Roller=$+roll * at *:@pemit %#=[u(HEADER)]%R[u(F.RESULTS,%0,%1,0)]%R[u(FOOTER)]
+&CMD.ROLL_WILD SW Roller=$+roll/w * at *:@pemit %#=[u(HEADER)]%R[u(F.RESULTS,%0,%1,1)]%R[u(FOOTER)]
+
+# Passed: %0 = X in dX, %1 = TN, %2 = 1 for wild 0 for no wild
+&F.RESULTS SW Roller=[setq(A,0)][switch(%2,0,[if(gte(setr(b,die(1,%0)),%1),[setq(A,1)][if(eq(%qB,%0),[u(F.ACE,%qB,B,%0)])][u(F.DISPLAY.RESULTS,%0,%qB,%qA,1,%1)],[u(F.DISPLAY.RESULTS,%0,%qB,%qA,1,%1)])],1,[setq(b,die(1,%0))][setq(c,die(1,6))][if(eq(%qB,%0),[u(F.ACE,%qB,B,%0)])][if(eq(%qC,6),[u(F.ACE,%qC,C,6)])][if(gt(%qB,%qC),[if(gte(%qB,%1),[setq(a,1)])][u(F.DISPLAY.RESULTS,%0,%qB,%qA,1,%1)],[if(gte(%qC,%1),[setq(a,1)][u(F.DISPLAY.RESULTS,6,%qC,%qA,1,%1)])])])]
+
+#Passed: Initial result, Register to write to, sides on die
+&F.ACE SW Roller=[setq(0,die(1,%2))][setq(%1,[add([r(%1)],%q0)])][if(eq(%q0,%2),[u(F.ACE,[r(%1)],%1,%2)])]
+
+#Passed: Sides on Die, Total Number, 0 for fail 1 for pass, 0 if wild 1 for regular, Target Number
+&F.DISPLAY.RESULTS SW Roller=[switch(%3,0,Your wild die rolled higher than your regular die.%R%RRolled: 1d6 against TN%4%RResults: Rolled a %1 for a [if(%2,Success,Failure)],1,Rolled: 1d%0 against TN%4%RResults: Rolled a %1 for a [if(%2,Success,Failure)])]
+@set me=!quiet
+th [ansi(hw,Savage Worlds Roller Made. Stick it in your master room. It does not need staff permissions unless you code it to read player sheets.)]
