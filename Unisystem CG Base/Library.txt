@@ -46,12 +46,24 @@ th [set(Library Controller,vb:[num(CG Description DB)])]
 
 &CMD.STAT.DISPLAY Library Controller=$+stat/display *=*:@assert [isstaff(%#)]={pemit %#=[ansi(hr,DENIED:)]%bStaff only.};@assert [match(xget(%va,LIST_STATS),[edit(%0,%b,-)])]={@pemit %#=[ansi(hr,ALERT:)]%bThat's not a valid stat type.};@assert [match(Single Dual,%1)]={@pemit %#=[ansi(hr,ALERT:)]%bDisplay type can only be Single or Dual.};[set(%va,DISPLAY_[edit(%0,%b,-)]:%1)];@pemit %#=[ansi(hw,NOTICE:)]%b%0's display type set to %1.
 
-&FN.REMOVE_ENTRY Library Controller=[ldelete(%0,[match(%0,%1*,|)],|)]
+&CMD.STAT.MOD #4079=$+stat/mod */*=*:@assert [isstaff(%#)];@assert [pmatch(%0)]=@pemit %#=%0 didn't match a player;@assert [hasattr(%va,LIST_[edit(%1,%b,_)])]=@pemit %#=%1 didn't match a stat type;@assert [eq([words(%2,:)],2)]=@pemit %#=Command Format: +stat/mod name/type\=stat:amount;[attrib_set([pmatch(%0)]/%1`MOD`[edit(before(%2,:),%b,-)],[after(%2,:)])];@set [pmatch(%0)]/%1`MOD=wizard mortal_dark;@pemit %#=Modified [apostrophe_name(pmatch(%0))] %1 [before(%2,:)] by [after(%2,:)]. Use +stat/modclear to remove.
 
-&CMD.STAT.SET Library Controller=$+stat/set */*=*:@assert [isstaff(%#)]={@pemit %#=[ansi(hr,STAFF ONLY)]};@assert [pmatch(%0)]={@pemit %#=[ansi(hr,%0 doesn't match a player.)]};@assert [hasattr(%va,LIST_[edit(%1,%b,_)])]={@pemit %#=[ansi(hr,%1 doesn't match a stat type.)]};@assert [gte([words(%2,:)],2)]={@pemit %#=[ansi(hr,Didn't put in a stat or level)]};@switch [strmatch(%2,!*)]=0,{@pemit %#=[u(F.SET.STAT,[pmatch(%0)],[edit(%1,%b,_)],%2)]},1,{@pemit %#=[u(F.REMOVE.STAT,[pmatch(%0)],[edit(%1,%b,_)],%2)]}
+&CMD.MOD.CLEAR #4079=$+stat/modclear */*=*:@assert [isstaff(%#)];@assert [pmatch(%0)]=@pemit %#=%0 didn't match a player;@assert [hasattr(%va,LIST_[edit(%1,%b,_)])]=@pemit %#=%1 didn't match a stat type;[attrib_set([pmatch(%0)]/%1`MOD`[edit(%2,%b,-)])];@pemit %#=Cleared the mod on [apostrophe_name(pmatch(%0))] %1 %2.
 
-&F.SET.STAT Library Controller=[setq(a,[before(%2,:)])][switch(words(after(%2,:),/),1,[set(%0,%1:[setunion(xget(%0,%1),%qA~[after(%2,:)]~,|,|)])],2,[set(%0,%1:[setunion(xget(%0,%1),%qA~[before(after(%2,:),/)]~[after(after(%2,:),/)],|,|)])])][set(%0/%1,Wizard)][ansi(hw,Stats:)]%bAdded %qA to [name(%0)] as [edit(%2,_,%b)]
+&FN.REMOVE_ENTRY #4079=[ldelete(%0,[match(%0,%1*,|)],|)]
 
-&F.REMOVE.STAT Library Controller=[setq(a,[edit([before(%2,:)],!,)])][setq(b,[lcstr(xget(%0,%1))])][switch(words(%qB,|),0,[ansi(hw,Stats:)]%bNo [edit(%2,_,%b)] on player,[set(%0,%1:[setdiff(lcstr(xget(%0,%1)),[lcstr(%qA~[before(after(%2,:),/)]~[after(after(%2,:),/)])],|,|)])][ansi(hw,Stats:)]%bRemoved %1 from [name(%0)])]
+&CMD.STAT.SET #4079=$+stat/set */*=*:@assert [isstaff(%#)]={@pemit %#=[ansi(hr,STAFF ONLY)]};@assert [pmatch(%0)]={@pemit %#=[ansi(hr,%0 doesn't match a player.)]};@assert [hasattr(%va,LIST_[edit(%1,%b,_)])]={@pemit %#=[ansi(hr,%1 doesn't match a stat type.)]};@assert [gte([words(%2,:)],2)]={@pemit %#=[ansi(hr,Didn't put in a stat or level)]};@switch [strmatch(%2,!*)][strmatch(%2,Specialty*)]=00,{@pemit %#=[u(F.SET.STAT,[pmatch(%0)],[edit(%1,%b,_)],%2)]},10,{@pemit %#=[u(F.REMOVE.STAT,[pmatch(%0)],[edit(%1,%b,_)],%2)]},01,{@pemit %#=[u(FN.SPEC.ADD,[pmatch(%0)],[edit(%1,%b,_)],%2)]},11,{@pemit %#=[u(FN.SPEC.REM,[pmatch(%0)],[edit(%1,%b,_)],%2)]};@cemit/noisy debug=[name(%#)] [if(strmatch(%2,!*),removing [after(%2,!)] from [apostrophe_name(pmatch(%0))] sheet.,adding %2 to [apostrophe_name(pmatch(%0))] sheet.)];[u(#1773/FN`WIZSET.INSERT_AUDIT,[pmatch(%0)],%#,%2)]
+
+@@ Passed - Player DBRef, Type, Merit:Level/Notes
+&F.SET.STAT #4079=[setq(a,[before(%2,:)])][switch(words(after(%2,:),/),1,[if(setr(z,match(xget(%0,%1),%qA*,|)),[set(%0,%1:[edit(xget(%0,%1),extract(xget(%0,%1),%qZ,1,|),%qA~[after(%2,:)]~)])],[set(%0,%1:[setunion(xget(%0,%1),%qA~[after(%2,:)]~,|,|)])])],2,[if(setr(z,match(xget(%0,%1),%qA~*~[after(after(%2,:),/)],|)),[set(%0,%1:[edit(xget(%0,%1),extract(xget(%0,%1),%qZ,1,|),%qA~[before(after(%2,:),/)]~[after(after(%2,:),/)])])],[set(%0,%1:[setunion(xget(%0,%1),%qA~[before(after(%2,:),/)]~[after(after(%2,:),/)],|,|)])])])][set(%0/%1,Wizard)][set(%0/%1,Mortal_dark)][ansi(hw,Stats:)]%bAdded %qA to [name(%0)] as [edit(%2,_,%b)]
+
+@@ Passed - Player DBRef, Type, Merit:Level/Notes
+&F.REMOVE.STAT #4079=[setq(a,[edit([before(%2,:)],!,)])][setq(b,xget(%0,%1))][switch(words(%qB,|),0,[ansi(hw,Stats:)]%bNo [edit(%2,_,%b)]on player,[set(%0,%1:[setdiff(xget(%0,%1),%qA~[before(after(%2,:),/)]~[after(after(%2,:),/)],|,i,|)])][ansi(hw,Stats:)]%bRemoved [before(%2,:)][if(t(setr(test,[after(%2,/)])),%b%q<test>)]from [name(%0)])]
+
+@@ Passed - Player DBREF, Type, What
+&FN.GET.STAT #4079=[switch([hasattrval(%0,%1)][t([setr(num,[match(xget(%0,%1),%2*,|)])])],0*,[setq(result,0)],10,[setq(result,0)],11,[setq(result,[extract([extract(xget(%0,%1),%q<num>,1,|)],2,1,~)])])][if(hasattrval(%0,%1`MOD`[edit(%2,%b,-)]),[setq(result,[add(%q<result>,[xget(%0,%1`MOD`[edit(%2,%b,-)])])])])]%q<result>
+
+@@ passed - Player DBREF, Type, What, Note
+&FN.GET.STAT.EX #4079=[switch([hasattrval(%0,%1)][t([setr(num,[match(xget(%0,%1),%2~*~%3,|)])])],0*,0,10,0,11,[extract([extract(xget(%0,%1),%q<num>,1,|)],2,1,~)])]
 
 th End Library Controller
